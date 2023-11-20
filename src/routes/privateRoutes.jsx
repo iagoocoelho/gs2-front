@@ -183,7 +183,6 @@ const PrivateRoute = ({ auth_state }) => {
 
 const mapStateToProps = (state) => {
   return {
-    auth_token: state.auth.data?.token,
     auth_state: state.auth,
   };
 };
