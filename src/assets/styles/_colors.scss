@@ -1,0 +1,25 @@
+$gray: #333;
+$textColorGray: #242424;
+$textLightGray: #8a8a8a;
+$red: #AD0C0C;
+$blue: #155cdd;
+$blueHover: #1d4185;
+$redHover: #830d0d;
+$green: #30c342;
+$greenHover: #30b23f;
+$mainColor: #022f74;
+$bgGray: #F8F8F8;
+
+:root {
+  --gray: $gray;
+  --red: $red;
+  --blue: $blue;
+  --blueHover: $blueHover;
+  --redHover: $redHover;
+  --green: $green;
+  --greenHover: $greenHover;
+  --mainColor: $mainColor;
+  --textColorGray: $textColorGray;
+  --bgGray: $bgGray;
+  --textLightGray: $textLightGray;
+}

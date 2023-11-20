@@ -1,0 +1,13 @@
+@import "../../assets/styles/colors";
+
+.toast-custom {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 30px;
+  width: 100%;
+
+  [role="alert"] {
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,26 @@
+@import "../../assets/styles/colors";
+
+.navbar {
+  background-color: #ffffff;
+
+  .btn-whats {
+    border: none;
+    background-color: transparent;
+    color: $mainColor;
+    transition: color 0.15s;
+    color: $mainColor;
+    font-weight: bold;
+  }
+
+  .btn-green {
+    padding: 0.6rem 2rem !important;
+  }
+
+  .nav-link {
+    width: max-content;
+  }
+
+  .btn-container {
+    flex-basis: 150px;
+  }
+}
