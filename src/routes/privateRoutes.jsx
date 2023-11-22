@@ -12,6 +12,8 @@ import ProductList from "pages/productList/productList";
 import FormOrder from "components/formOrder/formOrder";
 import { connect } from "react-redux";
 import { PermissionsByProfile } from "utils/variables";
+import FormDoctor from "components/formDoctor/formDoctor";
+import FormPrescription from "components/formPrescription/formPrescription";
 
 const privateRoutes = [
   {
@@ -161,22 +163,35 @@ const privateRoutes = [
 ];
 
 const PrivateRoute = ({ auth_state }) => {
-  const allowedRoutes = privateRoutes
-    .map((route) => {
-      let hasPerm = PermissionsByProfile[auth_state.data.perfil].find((x) => {
-        return Object.keys(route).pop() === x;
-      });
+  // const allowedRoutes = privateRoutes
+  //   .map((route) => {
+  //     let hasPerm = PermissionsByProfile[auth_state.data.perfil].find((x) => {
+  //       return Object.keys(route).pop() === x;
+  //     });
 
-      if (hasPerm) return route[Object.keys(route)];
+  //     if (hasPerm) return route[Object.keys(route)];
 
-      return false;
-    })
-    .filter((allowed) => allowed);
+  //     return false;
+  //   })
+  //   .filter((allowed) => allowed);
 
   return (
     <Routes>
       <Route path={"/"} element={<Home />} />
-      {allowedRoutes.map((x) => x)}
+      {/* {allowedRoutes.map((x) => x)} */}
+
+      <Route
+        key="cadastro_medico"
+        path={"/cadastro-medico"}
+        element={<FormDoctor />}
+      />
+
+      <Route
+        key="cadastro_receita"
+        path={"/cadastro-receita"}
+        element={<FormPrescription />}
+      />
+
     </Routes>
   );
 };
