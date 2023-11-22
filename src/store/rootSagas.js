@@ -4,15 +4,24 @@ import { all, takeLatest } from "redux-saga/effects";
 import { authRequest } from "./auth/sagas";
 import { authTypes } from "./auth/types";
 
-// Fornecedores
+// Médico
 import {
-  registerSupplierRequest,
-  getSupplierListRequest,
-  deleteSupplierRequest,
-  getSupplierByIdRequest,
-  editSupplierRequest,
-} from "./suppliers/sagas";
-import { suppliersTypes } from "./suppliers/types";
+  registerDoctorRequest,
+  getDoctorListRequest,
+  getDoctorByIdRequest,
+  editDoctorRequest,
+} from "./doctor/sagas";
+import { doctorTypes } from "./doctor/types";
+
+// Paciente
+import {
+  registerPatientRequest,
+  getPatientListRequest,
+  getPatientByIdRequest,
+  editPatientRequest,
+} from "./patient/sagas";
+import { patientTypes } from "./patient/types";
+
 
 // Clientes
 import {
@@ -57,22 +66,46 @@ export default function* rootSaga() {
     // AUTH
     takeLatest(authTypes.AUTH_REQUEST, authRequest),
 
-    // SUPPLIER
+    // Médico
     takeLatest(
-      suppliersTypes.REGISTER_SUPPLIER_REQUEST,
-      registerSupplierRequest
+      doctorTypes.REGISTER_DOCTOR_REQUEST,
+      registerDoctorRequest
     ),
-    takeLatest(suppliersTypes.EDIT_SUPPLIER_REQUEST, editSupplierRequest),
+    takeLatest(doctorTypes.EDIT_DOCTOR_REQUEST, editDoctorRequest),
     takeLatest(
-      suppliersTypes.GET_SUPPLIER_LIST_REQUEST,
-      getSupplierListRequest
+      doctorTypes.GET_DOCTOR_LIST_REQUEST,
+      getDoctorListRequest
     ),
-    takeLatest(suppliersTypes.DELETE_SUPPLIER_REQUEST, deleteSupplierRequest),
     takeLatest(
-      suppliersTypes.GET_SUPPLIER_BY_ID_REQUEST,
-      getSupplierByIdRequest
+      doctorTypes.GET_DOCTOR_BY_ID_REQUEST,
+      getDoctorByIdRequest
     ),
 
+    // Paciente
+    takeLatest(
+      patientTypes.REGISTER_PATIENT_REQUEST,
+      registerPatientRequest
+    ),
+    takeLatest(patientTypes.EDIT_PATIENT_REQUEST, editPatientRequest),
+    takeLatest(
+      patientTypes.GET_PATIENT_LIST_REQUEST,
+      getPatientListRequest
+    ),
+    takeLatest(
+      patientTypes.GET_PATIENT_BY_ID_REQUEST,
+      getPatientByIdRequest
+    ),
+
+
+
+
+
+
+
+
+
+
+    
     // CUSTOMER
     takeLatest(
       customersTypes.REGISTER_CUSTOMER_REQUEST,
