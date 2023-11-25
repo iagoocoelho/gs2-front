@@ -15,6 +15,6 @@ export function* authRequest(action) {
           "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InJvZHJpZ28iLCJpYXQiOjE3MDA4NzUzNTcsImV4cCI6MTcwMDg3ODk1N30.wfrqS5_iRftJftgZejPRTFa7nj_1ThKzQ09a9p6ixVw",
       })
     );
-    yield put(authFailure());
+    // yield put(authFailure());
   }
 }
