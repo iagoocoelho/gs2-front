@@ -4,7 +4,7 @@ import * as authActions from "store/auth/actions";
 import * as toast from "store/toast/actions";
 
 const AuthApi = axios.create({
-  baseURL: "http://localhost:8080/",
+  baseURL: "http://localhost:8866/",
   headers: {
     Accept: "application/json",
   },
