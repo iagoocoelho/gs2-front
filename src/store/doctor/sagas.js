@@ -60,7 +60,7 @@ export function* editDoctorRequest(action) {
 
 export function* getDoctorListRequest() {
   try {
-    const { data } = yield call(Api.get, "/cliente-fornecedor");
+    const { data } = yield call(Api.get, "/lista-medicos");
 
     yield put(getDoctorListSuccess(data));
   } catch (error) {
