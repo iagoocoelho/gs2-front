@@ -10,15 +10,15 @@ const Routers = ({ auth_token }) => {
   const isFirstRender = useRef(true);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (isFirstRender.current) {
-  //     isFirstRender.current = false;
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
 
-  //     if (!auth_token) {
-  //       navigate("/");
-  //     }
-  //   }
-  // }, [auth_token, navigate]);
+      if (!auth_token) {
+        navigate("/");
+      }
+    }
+  }, [auth_token, navigate]);
 
   return (
     <>
@@ -29,8 +29,7 @@ const Routers = ({ auth_token }) => {
           <PrivateRoutes />
         </>
       ) : (
-        // <Login />
-        <PrivateRoutes />
+        <Login />
       )}
       <Toast />
     </>
@@ -43,6 +42,5 @@ const mapStateToProps = (state) => {
     auth_state: state.auth,
   };
 };
-
 
 export default connect(mapStateToProps)(Routers);
