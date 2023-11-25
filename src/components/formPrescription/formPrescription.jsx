@@ -2,31 +2,28 @@ import React, { useEffect, useState } from "react";
 import { Form, Row, Col, FloatingLabel } from "react-bootstrap";
 import { MainContainer } from "components/container/mainContainer";
 import { connect } from "react-redux";
-import * as patientActions from "store/patient/actions";
+import * as prescriptionActions from "store/prescription/actions";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Typeahead } from "react-bootstrap-typeahead";
 import PrescriptionDetails from "./prescriptionDetails";
+import mock from "./mock.json";
 import "./formPrescription.scss";
 
 export const FormPrescription = ({
   registerState,
-  registerPatientRequest,
-  getPatientByIdRequest,
-  getPatientByIdClean,
-  editMode,
   patient,
+  registerPrescriptionRequest,
 }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const [hasConfirmedUserData, setHasConfirmedUserData] = useState(false);
   const [singleSelections, setSingleSelections] = useState([]);
+  const [list, setList] = useState([]);
 
   useEffect(() => {
-    return () => {
-      getPatientByIdClean();
-    };
-  }, [getPatientByIdRequest, getPatientByIdClean, editMode, pathname]);
+    setList(mock);
+  }, [pathname]);
 
   useEffect(() => {
     if (!patient.loading && patient.success) setData(patient.data);
@@ -54,11 +51,16 @@ export const FormPrescription = ({
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    registerPatientRequest(data, () => navigate("/listagem-paciente"));
+    registerPrescriptionRequest(data);
   };
 
   const handleChangePatient = (event) => {
     setSingleSelections(event);
+
+    let pacientTarget = list.find((x) => x.nome === event[0]);
+
+    setData(pacientTarget);
+
     setHasConfirmedUserData(false);
   };
 
@@ -66,18 +68,16 @@ export const FormPrescription = ({
     event.preventDefault();
 
     setHasConfirmedUserData(true);
-
-    // registerPatientRequest(data, () => navigate("/listagem-paciente"));
   };
 
   const onChangeProduct = ({ remedio, dosagem, frequencia, prazo, index }) => {
     let newData = data.detalhe_receita.map((detalhe_remedio, i) => {
       if (i === index) {
         return {
-          remedio: !!remedio ? remedio : detalhe_remedio.remedio,
-          dosagem: !!dosagem ? dosagem : detalhe_remedio.dosagem,
-          frequencia: !!frequencia ? frequencia : detalhe_remedio.frequencia,
-          prazo: !!prazo ? prazo : detalhe_remedio.prazo,
+          remedio: remedio,
+          dosagem: dosagem,
+          frequencia: frequencia,
+          prazo: prazo,
         };
       }
 
@@ -87,13 +87,10 @@ export const FormPrescription = ({
     setData({ ...data, detalhe_receita: newData });
   };
 
-  const removeMedicament = (detalhesRemedio) => {
-    // debugger;
+  const removeMedicament = (index) => {
     if (data.detalhe_receita.length === 1) return;
 
-    let newList = data.detalhe_receita.filter(
-      (d, i) => d.remedio !== detalhesRemedio.remedio
-    );
+    let newList = data.detalhe_receita.filter((d, i) => i !== index);
 
     setData({ ...data, detalhe_receita: newList });
   };
@@ -126,35 +123,7 @@ export const FormPrescription = ({
                 labelKey="name"
                 id="name"
                 onChange={handleChangePatient}
-                options={[
-                  "Brooks",
-                  "Rachel",
-                  "Edwards",
-                  "Christopher",
-                  "Perez",
-                  "Thomas",
-                  "Baker",
-                  "Sara",
-                  "Moore",
-                  "Chris",
-                  "Bailey",
-                  "Roger",
-                  "Johnson",
-                  "Marilyn",
-                  "Thompson",
-                  "Anthony",
-                  "Evans",
-                  "Julie",
-                  "Hall",
-                  "Paula",
-                  "Phillips",
-                  "Annie",
-                  "Hernandez",
-                  "Dorothy",
-                  "Murphy",
-                  "Alice",
-                  "Howard",
-                ]}
+                options={list.map((x) => x.nome)}
                 placeholder="Busque pelo paciente, caso não exista ele será cadastrado."
                 selected={singleSelections}
               />
@@ -269,6 +238,7 @@ export const FormPrescription = ({
                   <FloatingLabel
                     controlId="floatingTextarea2"
                     label="Informações adicionais"
+                    disabled
                   >
                     <Form.Control
                       as="textarea"
@@ -317,22 +287,15 @@ export const FormPrescription = ({
 
 const mapStateToProps = (state) => {
   return {
-    registerState: state.patient.register,
-    deleteState: state.patient.delete,
+    registerState: state.prescription.register,
     patient: state.patient.patientById,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    registerPatientRequest: (data, navigate) => {
-      dispatch(patientActions.registerPatientRequest(data, navigate));
-    },
-    getPatientByIdRequest: (id) => {
-      dispatch(patientActions.getPatientByIdRequest(id));
-    },
-    getPatientByIdClean: () => {
-      dispatch(patientActions.getPatientByIdClean());
+    registerPrescriptionRequest: (data, navigate) => {
+      dispatch(prescriptionActions.registerPrescriptionRequest(data, navigate));
     },
   };
 };

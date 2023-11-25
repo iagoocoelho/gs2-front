@@ -64,7 +64,7 @@ export const PrescriptionDetails = ({
       <Col className="col-1 col-sm-1 align-self-center">
         <button
           type="button"
-          onClick={() => removeMedicament(detalhesRemedio)}
+          onClick={() => removeMedicament(index)}
           className="remove"
           ria-label="Informações do pedido"
         >
