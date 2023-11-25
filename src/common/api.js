@@ -33,7 +33,7 @@ AuthApi.interceptors.response.use(
 );
 
 const Api = axios.create({
-  baseURL: "http://localhost:8080/", // TODO: 1. AJUSTAR BASE URL
+  baseURL: "http://localhost:8866/", // TODO: 1. AJUSTAR BASE URL
   headers: {
     Accept: "application/json",
   },
