@@ -5,10 +5,10 @@ import {
   registerDoctorFailure,
   getDoctorListSuccess,
   getDoctorListFailure,
-  getDoctorByIdSuccess,
-  getDoctorByIdFailure,
   editDoctorSuccess,
   editDoctorFailure,
+  deleteDoctorSuccess,
+  deleteDoctorFailure,
 } from "./actions";
 import { showToastr } from "store/toast/actions";
 
@@ -16,7 +16,7 @@ export function* registerDoctorRequest(action) {
   try {
     const { data } = yield call(
       Api.post,
-      "/cliente-fornecedor",
+      "/cadastra-medico",
       action.payload.data
     );
     yield put(
@@ -39,7 +39,7 @@ export function* editDoctorRequest(action) {
   try {
     const { data } = yield call(
       Api.put,
-      `/cliente-fornecedor/${action.payload.id}`,
+      `/atualiza-medico/${action.payload.id}`,
       action.payload.data
     );
     yield put(
@@ -58,19 +58,6 @@ export function* editDoctorRequest(action) {
   }
 }
 
-export function* getDoctorByIdRequest(action) {
-  try {
-    const { data } = yield call(
-      Api.get,
-      `/cliente-fornecedor/${action.payload.id}`
-    );
-
-    yield put(getDoctorByIdSuccess(data));
-  } catch (error) {
-    yield put(getDoctorByIdFailure(error));
-  }
-}
-
 export function* getDoctorListRequest() {
   try {
     const { data } = yield call(Api.get, "/cliente-fornecedor");
@@ -78,5 +65,36 @@ export function* getDoctorListRequest() {
     yield put(getDoctorListSuccess(data));
   } catch (error) {
     yield put(getDoctorListFailure(error));
+  }
+}
+
+export function* deleteDoctorRequest(action) {
+  try {
+    yield call(
+      Api.delete,
+      `/remove-medico/${action.paylod.id}`
+      // action.payload.id
+    );
+
+    yield put(
+      showToastr({
+        type: "success",
+        message: "Médico deletado com sucesso!",
+      })
+    );
+
+    yield delay(1500);
+    yield put(deleteDoctorSuccess());
+    yield call(action.payload.navigate);
+  } catch (error) {
+    yield put(
+      showToastr({
+        type: "danger",
+        message: "Falha ao deletar o fornecedor",
+      })
+    );
+    yield delay(1500);
+    yield put(deleteDoctorFailure(error));
+    yield call(action.payload.navigate);
   }
 }

@@ -19,6 +19,11 @@ const INITIAL_STATE = {
     error: false,
     data: {},
   },
+  delete: {
+    success: false,
+    loading: false,
+    error: false,
+  },
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -54,37 +59,6 @@ const reducer = (state = INITIAL_STATE, action) => {
         },
       };
 
-    case doctorTypes.GET_DOCTOR_BY_ID_REQUEST:
-      return {
-        ...state,
-        doctorById: {
-          loading: true,
-          success: false,
-          error: false,
-        },
-      };
-    case doctorTypes.GET_DOCTOR_BY_ID_SUCCESS:
-      return {
-        ...state,
-        doctorById: {
-          ...state.doctorById,
-          data: action.payload.data,
-          success: true,
-          loading: false,
-          error: false,
-        },
-      };
-    case doctorTypes.GET_DOCTOR_BY_ID_FAILURE:
-      return {
-        ...state,
-        doctorById: {
-          ...state.doctorById,
-          success: false,
-          loading: false,
-          error: true,
-        },
-      };
-
     case doctorTypes.GET_DOCTOR_BY_ID_CLEAN:
       return {
         ...state,
@@ -92,7 +66,6 @@ const reducer = (state = INITIAL_STATE, action) => {
           ...INITIAL_STATE.doctorById,
         },
       };
-
     case doctorTypes.REGISTER_DOCTOR_REQUEST:
       return {
         ...state,
@@ -147,6 +120,36 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         register: {
           ...state.register,
+          success: false,
+          loading: false,
+          error: true,
+        },
+      };
+
+    case doctorTypes.DELETE_DOCTOR_REQUEST:
+      return {
+        ...state,
+        delete: {
+          loading: true,
+          success: false,
+          error: false,
+        },
+      };
+    case doctorTypes.DELETE_DOCTOR_SUCCESS:
+      return {
+        ...state,
+        delete: {
+          ...state.delete,
+          success: true,
+          loading: false,
+          error: false,
+        },
+      };
+    case doctorTypes.DELETE_DOCTOR_FAILURE:
+      return {
+        ...state,
+        delete: {
+          ...state.delete,
           success: false,
           loading: false,
           error: true,

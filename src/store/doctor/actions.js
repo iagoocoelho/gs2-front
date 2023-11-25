@@ -22,11 +22,12 @@ export const getDoctorListSuccess = (data) =>
 export const getDoctorListFailure = (error) =>
   action(doctorTypes.GET_DOCTOR_LIST_FAILURE, { error });
 
-export const getDoctorByIdRequest = (id) =>
-  action(doctorTypes.GET_DOCTOR_BY_ID_REQUEST, { id });
-export const getDoctorByIdSuccess = (data) =>
-  action(doctorTypes.GET_DOCTOR_BY_ID_SUCCESS, { data });
-export const getDoctorByIdFailure = (error) =>
-  action(doctorTypes.GET_DOCTOR_BY_ID_FAILURE, { error });
+export const deleteDoctorRequest = (id) =>
+  action(doctorTypes.DELETE_DOCTOR_REQUEST, { id });
+export const deleteDoctorSuccess = (data) =>
+  action(doctorTypes.DELETE_DOCTOR_SUCCESS, { data });
+export const deleteDoctorFailure = (error) =>
+  action(doctorTypes.DELETE_DOCTOR_FAILURE, { error });
+
 export const getDoctorByIdClean = () =>
   action(doctorTypes.GET_DOCTOR_BY_ID_CLEAN);

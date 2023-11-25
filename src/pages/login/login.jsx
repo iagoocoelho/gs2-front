@@ -22,7 +22,7 @@ export const Login = ({ auth_state, authRequest }) => {
   return (
     <MainContainer className="login">
       <Row className="col-12 py-4 title text-sm-center">
-        <h3 className="p-2">Bem-vindo!</h3>
+        <h3 className="p-2">Bem-vindo ao Vita Core Pro!</h3>
         <p className="p-2">Acesse o sistema com seu usuário e senha.</p>
       </Row>
 

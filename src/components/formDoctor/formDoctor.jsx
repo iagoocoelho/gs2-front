@@ -10,7 +10,7 @@ export const FormDoctor = ({
   registerState,
   registerDoctorRequest,
   editDoctorRequest,
-  getDoctorByIdRequest,
+  deleteDoctorRequest,
   getDoctorByIdClean,
   editMode,
   doctor,
@@ -22,13 +22,12 @@ export const FormDoctor = ({
   useEffect(() => {
     if (editMode && isFirstRender.current) {
       isFirstRender.current = false;
-      return getDoctorByIdRequest(pathname.split("/editar-fornecedor/")[1]);
     }
 
     return () => {
       getDoctorByIdClean();
     };
-  }, [getDoctorByIdRequest, getDoctorByIdClean, editMode, pathname]);
+  }, [editMode, pathname, getDoctorByIdClean]);
 
   useEffect(() => {
     if (!doctor.loading && doctor.success) setData(doctor.data);
@@ -49,7 +48,6 @@ export const FormDoctor = ({
       editDoctorRequest(data.id, data, () => navigate("/listagem-medico"));
       return;
     }
-
     registerDoctorRequest(data, () => navigate("/listagem-medico"));
   };
 
@@ -85,7 +83,9 @@ export const FormDoctor = ({
 
           <Row>
             <Form.Group as={Col} className="mb-3 col-4 col-sm-4">
-              <Form.Label htmlFor="dt_nascimento">Data de Nascimento</Form.Label>
+              <Form.Label htmlFor="dt_nascimento">
+                Data de Nascimento
+              </Form.Label>
               <Form.Control
                 id="dt_nascimento"
                 placeholder="dd/mm/aaaa"
@@ -130,6 +130,14 @@ export const FormDoctor = ({
             </Col>
           </Row>
         </Form>
+
+        <button
+          onClick={() => {
+            deleteDoctorRequest(1);
+          }}
+        >
+          deletar
+        </button>
       </div>
     </MainContainer>
   );
@@ -138,7 +146,7 @@ export const FormDoctor = ({
 const mapStateToProps = (state) => {
   return {
     registerState: state.doctor.register,
-    doctor: state.doctor.doctorById,
+    doctor: state.doctor.list,
   };
 };
 
@@ -150,8 +158,8 @@ const mapDispatchToProps = (dispatch) => {
     editDoctorRequest: (id, data, navigate) => {
       dispatch(doctorActions.editDoctorRequest(id, data, navigate));
     },
-    getDoctorByIdRequest: (id) => {
-      dispatch(doctorActions.getDoctorByIdRequest(id));
+    deleteDoctorRequest: (id) => {
+      dispatch(doctorActions.deleteDoctorRequest(id));
     },
     getDoctorByIdClean: () => {
       dispatch(doctorActions.getDoctorByIdClean());

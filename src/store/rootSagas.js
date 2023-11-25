@@ -8,8 +8,8 @@ import { authTypes } from "./auth/types";
 import {
   registerDoctorRequest,
   getDoctorListRequest,
-  getDoctorByIdRequest,
   editDoctorRequest,
+  deleteDoctorRequest,
 } from "./doctor/sagas";
 import { doctorTypes } from "./doctor/types";
 
@@ -22,6 +22,10 @@ import {
 } from "./patient/sagas";
 import { patientTypes } from "./patient/types";
 
+// Receita
+import { registerPrescriptionRequest } from "./prescription/sagas";
+import { prescriptionTypes } from "./prescription/types";
+
 export default function* rootSaga() {
   return yield all([
     // AUTH
@@ -31,7 +35,13 @@ export default function* rootSaga() {
     takeLatest(doctorTypes.REGISTER_DOCTOR_REQUEST, registerDoctorRequest),
     takeLatest(doctorTypes.EDIT_DOCTOR_REQUEST, editDoctorRequest),
     takeLatest(doctorTypes.GET_DOCTOR_LIST_REQUEST, getDoctorListRequest),
-    takeLatest(doctorTypes.GET_DOCTOR_BY_ID_REQUEST, getDoctorByIdRequest),
+    takeLatest(doctorTypes.DELETE_DOCTOR_REQUEST, deleteDoctorRequest),
+
+    // Receita
+    takeLatest(
+      prescriptionTypes.REGISTER_PRESCRIPTION_REQUEST,
+      registerPrescriptionRequest
+    ),
 
     // Paciente
     takeLatest(patientTypes.REGISTER_PATIENT_REQUEST, registerPatientRequest),
