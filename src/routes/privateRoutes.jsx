@@ -17,11 +17,20 @@ const privateRoutes = [
     ),
   },
   {
-    cadastro_medico: (
+    cadastra_medico: (
       <Route
-        key="cadastro_medico"
+        key="cadastra_medico"
         path={"/cadastro-medico"}
         element={<FormDoctor />}
+      />
+    ),
+  },
+  {
+    edita_medico: (
+      <Route
+        key="edita_medico"
+        path={"/editar-medico/:id"}
+        element={<FormDoctor editMode />}
       />
     ),
   },
@@ -53,18 +62,6 @@ const PrivateRoute = ({ auth_state }) => {
     <Routes>
       <Route path={"/"} element={<Home />} />
       {allowedRoutes.map((x) => x)}
-      {/* 
-      <Route
-        key="cadastro_medico"
-        path={"/cadastro-medico"}
-        element={<FormDoctor />}
-      />
-
-      <Route
-        key="cadastro_receita"
-        path={"/cadastro-receita"}
-        element={<FormPrescription />}
-      /> */}
     </Routes>
   );
 };

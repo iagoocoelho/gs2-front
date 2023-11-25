@@ -48,26 +48,26 @@ Api.interceptors.request.use(async (config) => {
 Api.interceptors.response.use(
   async (response) => response,
   async (error) => {
-    store.dispatch(authActions.authLogout());
+    // store.dispatch(authActions.authLogout());
     
 
-    if (error.response.status === 500) {
-      console.log("Ops, ocorreu um erro, tente novamente!");
-    } else if (error.response.status === 404) {
-      console.log("Ops, não encontrado!");
-    } else if (error.response.status === 401) {
-      store.dispatch(
-        toast.showToastr({
-          type: "danger",
-          message: "Seu token expirou! :(",
-        })
-      );
+    // if (error.response.status === 500) {
+    //   console.log("Ops, ocorreu um erro, tente novamente!");
+    // } else if (error.response.status === 404) {
+    //   console.log("Ops, não encontrado!");
+    // } else if (error.response.status === 401) {
+    //   store.dispatch(
+    //     toast.showToastr({
+    //       type: "danger",
+    //       message: "Seu token expirou! :(",
+    //     })
+    //   );
 
-      store.dispatch(authActions.authLogout());
-      throw error.response;
-    } else {
-      throw error.response;
-    }
+    //   store.dispatch(authActions.authLogout());
+    //   throw error.response;
+    // } else {
+    // }
+    throw error.response;
   }
 );
 

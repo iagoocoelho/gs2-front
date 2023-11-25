@@ -11,8 +11,7 @@ export const FormDoctor = ({
   registerDoctorRequest,
   editDoctorRequest,
   deleteDoctorRequest,
-  getDoctorByIdClean,
-  editMode,
+  editMode = false,
   doctor,
 }) => {
   const { pathname } = useLocation();
@@ -22,23 +21,19 @@ export const FormDoctor = ({
   useEffect(() => {
     if (editMode && isFirstRender.current) {
       isFirstRender.current = false;
+
+      let id = pathname.split("/editar-medico/")[1];
+
+      let newData = doctor.data.find((x) => x.id === +id);
+
+      setData(newData);
     }
-
-    return () => {
-      getDoctorByIdClean();
-    };
-  }, [editMode, pathname, getDoctorByIdClean]);
-
-  useEffect(() => {
-    if (!doctor.loading && doctor.success) setData(doctor.data);
-  }, [doctor]);
+  }, [editMode, pathname, doctor.data]);
 
   const [data, setData] = useState({
     id: null,
     nome: "",
     crm: "",
-    area_atuacao: "",
-    dt_nascimento: "",
   });
 
   const handleSubmit = (event) => {
@@ -48,7 +43,10 @@ export const FormDoctor = ({
       editDoctorRequest(data.id, data, () => navigate("/listagem-medico"));
       return;
     }
-    registerDoctorRequest(data, () => navigate("/listagem-medico"));
+
+    let newData = [...doctor.data, { ...data, id: doctor.data.length + 1 }];
+
+    registerDoctorRequest(newData, () => navigate("/listagem-medico"));
   };
 
   return (
@@ -74,36 +72,9 @@ export const FormDoctor = ({
               <Form.Label htmlFor="crm">CRM</Form.Label>
               <Form.Control
                 id="crm"
-                placeholder="123456-XX"
+                placeholder="123456"
                 value={data.crm}
                 onChange={(e) => setData({ ...data, crm: e.target.value })}
-              />
-            </Form.Group>
-          </Row>
-
-          <Row>
-            <Form.Group as={Col} className="mb-3 col-4 col-sm-4">
-              <Form.Label htmlFor="dt_nascimento">
-                Data de Nascimento
-              </Form.Label>
-              <Form.Control
-                id="dt_nascimento"
-                placeholder="dd/mm/aaaa"
-                value={data.dt_nascimento}
-                onChange={(e) =>
-                  setData({ ...data, dt_nascimento: e.target.value })
-                }
-              />
-            </Form.Group>
-
-            <Form.Group as={Col} className="mb-3 col-4 col-sm-4">
-              <Form.Label htmlFor="area_atuacao">Área de Atuação</Form.Label>
-              <Form.Control
-                id="area_atuacao"
-                value={data.area_atuacao}
-                onChange={(e) =>
-                  setData({ ...data, area_atuacao: e.target.value })
-                }
               />
             </Form.Group>
           </Row>
@@ -130,14 +101,6 @@ export const FormDoctor = ({
             </Col>
           </Row>
         </Form>
-
-        <button
-          onClick={() => {
-            deleteDoctorRequest(1);
-          }}
-        >
-          deletar
-        </button>
       </div>
     </MainContainer>
   );
@@ -160,9 +123,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     deleteDoctorRequest: (id) => {
       dispatch(doctorActions.deleteDoctorRequest(id));
-    },
-    getDoctorByIdClean: () => {
-      dispatch(doctorActions.getDoctorByIdClean());
     },
   };
 };

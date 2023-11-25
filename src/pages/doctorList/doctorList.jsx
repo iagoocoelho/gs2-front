@@ -11,8 +11,10 @@ export const DoctorList = ({
 }) => {
   let navigate = useNavigate();
   useEffect(() => {
-    getDoctorListRequest();
-  }, [getDoctorListRequest]);
+    if (doctorList.data.length === 0 && !doctorList.loading) {
+      getDoctorListRequest();
+    }
+  }, [getDoctorListRequest, doctorList]);
 
   return (
     <>
@@ -20,8 +22,8 @@ export const DoctorList = ({
         <Table>
           <thead>
             <tr>
-              <th>CRM</th>
               <th>Nome</th>
+              <th>CRM</th>
             </tr>
           </thead>
           <tbody>
@@ -29,8 +31,20 @@ export const DoctorList = ({
               return (
                 <React.Fragment key={item.id}>
                   <tr>
-                    <td>{item.crm}</td>
                     <td>{item.nome}</td>
+                    <td>{item.crm}</td>
+                    <td>
+                      <button
+                        className="btn-blue"
+                        onClick={() => {
+                          if (auth_state.data.perfil !== "PRODUCAO") return;
+                          navigate(`/editar-medico/${item.id}`);
+                        }}
+                        disabled={auth_state.data.perfil !== "PRODUCAO"}
+                      >
+                        Editar
+                      </button>
+                    </td>
                   </tr>
                 </React.Fragment>
               );

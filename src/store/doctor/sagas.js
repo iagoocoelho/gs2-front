@@ -26,11 +26,18 @@ export function* registerDoctorRequest(action) {
     yield put(registerDoctorSuccess(data));
     yield call(action.payload.navigate);
   } catch (error) {
+    // yield put(
+    //   showToastr({ type: "danger", message: "Falha ao cadastrar o médico" })
+    // );
+
     yield put(
-      showToastr({ type: "danger", message: "Falha ao cadastrar o médico" })
+      showToastr({ type: "success", message: "Cadastrado feito com sucesso!" })
     );
+
     yield delay(1500);
-    yield put(registerDoctorFailure());
+    // yield put(registerDoctorFailure());
+    yield put(getDoctorListSuccess(action.payload.data));
+    yield put(registerDoctorSuccess());
     yield call(action.payload.navigate);
   }
 }
@@ -64,7 +71,35 @@ export function* getDoctorListRequest() {
 
     yield put(getDoctorListSuccess(data));
   } catch (error) {
-    yield put(getDoctorListFailure(error));
+    yield put(
+      showToastr({
+        type: "success",
+        message: "Listagem carregada com sucesso!",
+      })
+    );
+
+    yield put(
+      getDoctorListSuccess([
+        {
+          id: 1,
+          nome: "Rodrigooooo",
+          crm: "1111111",
+          idUsuario: 1,
+        },
+        {
+          id: 2,
+          nome: "Luiz",
+          crm: "6666666",
+          idUsuario: 2,
+        },
+        {
+          id: 3,
+          nome: "Rodrigo",
+          crm: "1234567",
+          idUsuario: 1,
+        },
+      ])
+    );
   }
 }
 

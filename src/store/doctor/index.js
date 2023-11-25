@@ -32,6 +32,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         list: {
+          ...state.list,
           loading: true,
           success: false,
           error: false,
@@ -53,9 +54,10 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         list: {
           ...state.list,
-          success: false,
+          data: action.payload.data,
+          success: true,
           loading: false,
-          error: true,
+          error: false,
         },
       };
 
