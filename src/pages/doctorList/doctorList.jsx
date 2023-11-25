@@ -20,9 +20,8 @@ export const DoctorList = ({
         <Table>
           <thead>
             <tr>
-              <th>Fornecedor</th>
-              <th>Codigo do Fabricante</th>
-              <th>Descrição</th>
+              <th>CRM</th>
+              <th>Nome</th>
             </tr>
           </thead>
           <tbody>
@@ -30,22 +29,8 @@ export const DoctorList = ({
               return (
                 <React.Fragment key={item.id}>
                   <tr>
-                    <td>{item.fornecedor.nome}</td>
-                    <td>{item.codigoFabricante}</td>
-                    <td>{item.descricao}</td>
-                    <td>{item.custo}</td>
-                    <td>
-                      <button
-                        className="btn-blue"
-                        onClick={() => {
-                          if (auth_state.data.perfil === "PRODUCAO") return;
-                          navigate(`/atualizar-medico/${item.id}`);
-                        }}
-                        disabled={auth_state.data.perfil === "PRODUCAO"}
-                      >
-                        Editar
-                      </button>
-                    </td>
+                    <td>{item.crm}</td>
+                    <td>{item.nome}</td>
                   </tr>
                 </React.Fragment>
               );

@@ -8,72 +8,16 @@ import * as authActions from "store/auth/actions";
 
 const privateHeaders = [
   {
-    lista_fornecedor: (
-      <Nav.Link key="lista_fornecedor" href="/listagem-fornecedor">
-        Listagem de Fornecedores
+    lista_medico: (
+      <Nav.Link key="lista_medico" href="/listagem-medico">
+        Listagem de Médicos
       </Nav.Link>
     ),
   },
   {
-    edit_fornecedor: (
-      <Nav.Link key="edit_fornecedor" href="/cadastro-fornecedor">
-        Cadastrar Fornecedor
-      </Nav.Link>
-    ),
-  },
-  {
-    lista_cliente: (
-      <Nav.Link key="lista_cliente" href="/listagem-cliente">
-        Listagem de Clientes
-      </Nav.Link>
-    ),
-  },
-  {
-    edit_cliente: (
-      <Nav.Link key="edit_cliente" href="/cadastro-cliente">
-        Cadastrar Clientes
-      </Nav.Link>
-    ),
-  },
-  {
-    lista_material: (
-      <Nav.Link key="lista_material" href="/listagem-material">
-        Listagem de Materiais
-      </Nav.Link>
-    ),
-  },
-  {
-    edit_material: (
-      <Nav.Link key="edit_material" href="/cadastro-material">
-        Cadastrar Material
-      </Nav.Link>
-    ),
-  },
-  {
-    lista_produto: (
-      <Nav.Link key="lista_produto" href="/listagem-produto">
-        Listagem de Produtos
-      </Nav.Link>
-    ),
-  },
-  {
-    edit_produto: (
-      <Nav.Link key="edit_produto" href="/cadastro-produto">
-        Cadastrar Produto
-      </Nav.Link>
-    ),
-  },
-  {
-    lista_pedido: (
-      <Nav.Link key="lista_pedido" href="/lista-pedidos">
-        Listagem de Pedidos
-      </Nav.Link>
-    ),
-  },
-  {
-    edit_pedido: (
-      <Nav.Link key="edit_pedido" href="/cadastro-pedido">
-        Cadastrar Pedido
+    cadastra_medico: (
+      <Nav.Link key="cadastra_medico" href="/cadastro-medico">
+        Cadastrar Médico
       </Nav.Link>
     ),
   },
